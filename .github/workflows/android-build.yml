@@ -21,7 +21,15 @@ jobs:
         cache: gradle
 
     - name: Generate Gradle Wrapper
-      run: gradle wrapper --no-daemon
+      run: |
+        mkdir temp-wrapper
+        cd temp-wrapper
+        gradle wrapper --gradle-version 8.4 --no-daemon
+        cp -r gradle ../
+        cp gradlew ../
+        cp gradlew.bat ../
+        cd ..
+        rm -rf temp-wrapper
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
