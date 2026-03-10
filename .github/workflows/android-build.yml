@@ -18,21 +18,8 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: gradle
-
-    - name: Generate Gradle Wrapper
-      run: |
-        mkdir temp-wrapper
-        cd temp-wrapper
-        gradle wrapper --gradle-version 8.4 --no-daemon
-        cp -r gradle ../
-        cp gradlew ../
-        cp gradlew.bat ../
-        cd ..
-        rm -rf temp-wrapper
-
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v3
 
     - name: Build with Gradle
       run: ./gradlew assembleDebug --no-daemon
